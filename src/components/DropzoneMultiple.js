@@ -1,19 +1,24 @@
 import React, { useCallback } from "react";
 import { useDropzone } from "react-dropzone";
 import {useMutation} from "@apollo/client";
-import {UPLOAD_FILE} from "../GraphQL/mutations/upload";
+import {UPLOAD_FILES} from "../GraphQL/mutations/upload";
 
-const FileUpload = () => {
-    const [uploadFile] = useMutation(UPLOAD_FILE);
+const FilesUpload = () => {
+    const [uploadFiles] = useMutation(UPLOAD_FILES);
 
-    const onDrop = useCallback(async (acceptedFiles) => {
+    const onDrop = useCallback((acceptedFiles) => {
 
-        const file = acceptedFiles[0];
-
-        await uploadFile({
-            variables: { file }
+        uploadFiles({
+            variables: {
+                files: acceptedFiles,
+                ref: 'veterinary',
+                refId: 1,
+                field: 'medias'
+            }
         })
-    }, [uploadFile]);
+            .then(() => console.log('files uploads'))
+
+    }, [uploadFiles]);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop,
     });
@@ -27,4 +32,4 @@ const FileUpload = () => {
     );
 };
 
-export default FileUpload;
+export default FilesUpload;

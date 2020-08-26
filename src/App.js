@@ -4,6 +4,7 @@ import { createUploadLink } from "apollo-upload-client";
 import './App.css';
 import MediaUpload from "./components/MediaUpload";
 import FileUpload from "./components/Dropzone";
+import FilesUpload from "./components/DropzoneMultiple";
 
 function App() {
 
@@ -23,6 +24,7 @@ function App() {
 
                 <MediaUpload/>
                 <FileUpload />
+                <FilesUpload />
             </div>
         </ApolloProvider>
     );

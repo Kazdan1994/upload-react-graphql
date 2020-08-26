@@ -8,10 +8,8 @@ const FileUpload = () => {
 
     const onDrop = useCallback(async (acceptedFiles) => {
 
-        const file = acceptedFiles[0];
-
         await uploadFile({
-            variables: { file }
+            variables: { file: acceptedFiles[0] }
         })
     }, [uploadFile]);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({

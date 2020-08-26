@@ -1,9 +1,12 @@
 import {gql} from "@apollo/client";
 
 export const UPLOAD_FILE = gql`
-    mutation ($file: Upload!) {
+    mutation ($file: Upload!, $ref: String!, $refId: ID, $field: String) {
         upload(
             file: $file
+            ref: $ref
+            refId: $refId
+            field: $field
         ) {
             id
             name
@@ -24,7 +27,7 @@ export const UPLOAD_FILE = gql`
 
 export const UPLOAD_FILES = gql`
     mutation ($files: [Upload]!, $ref: String!, $refId: ID, $field: String) {
-        upload(
+        multipleUpload(
             files: $files
             ref: $ref
             refId: $refId
