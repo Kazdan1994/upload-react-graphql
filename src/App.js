@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
+import { createUploadLink } from "apollo-upload-client";
 import './App.css';
+import MediaUpload from "./components/MediaUpload";
+import FileUpload from "./components/Dropzone";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const httpLink = createUploadLink({
+        uri: 'http://localhost:1337/graphql',
+    });
+
+    const client = new ApolloClient({
+        link: httpLink,
+        cache: new InMemoryCache()
+    });
+
+    return (
+        <ApolloProvider client={client}>
+            <div>
+                <h2>My first Apollo app !</h2>
+
+                <MediaUpload/>
+                <FileUpload />
+            </div>
+        </ApolloProvider>
+    );
 }
 
 export default App;
